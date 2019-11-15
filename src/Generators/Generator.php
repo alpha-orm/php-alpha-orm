@@ -13,12 +13,10 @@ abstract class Generator
     static function getGenerator(string $driver): Generator
     {
         $driver = strtolower($driver);
+        if (!in_array($driver, AlphaORM::SUPPORTED_DATABASES)) { throw new Exception("'{$driver}' is not a supported database. Supported databases includes mysql"); }
         switch ($driver) {
             case 'mysql':
                 return MySQLGenerator::class;
-                break;
-            default:
-                throw new Exceptiion("'${driver}' is not a supported database. Supported databases includes mysql, sqlite and pgsql");
                 break;
         }
     }

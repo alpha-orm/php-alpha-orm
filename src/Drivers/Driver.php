@@ -32,12 +32,10 @@ abstract class Driver
     static function getDriver(string $driver): Driver
     {
         $driver = strtolower($driver);
+        if (!in_array($driver, AlphaORM::SUPPORTED_DATABASES)) { throw new Exception("'{$driver}' is not a supported database. Supported databases includes mysql"); }
         switch ($driver) {
             case 'mysql':
                 return MySQLDriver::class;
-                break;
-            default:
-                throw new Exception("'{$driver}' is not a supported database. Supported databases includes mysql");
                 break;
         }
     }
