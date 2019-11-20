@@ -18,11 +18,17 @@
         },
         "files" :
         [
-            "src/utilities/functions.php" 
+            "src/utilities/functions.php",
+            "src/utilities/constants.php"
         ]
     },
     "require":
     {
         
+    },
+    "config": {
+        "platform": {
+            "php": "7.1.32"
+        }
     }
 }

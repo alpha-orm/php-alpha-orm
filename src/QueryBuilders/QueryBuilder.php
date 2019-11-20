@@ -1,33 +1,34 @@
 <?php
 namespace AlphaORM\QueryBuilders;
 
+use AlphaORM\AlphaRecord;
+
 abstract class QueryBuilder {
 
-    abstract function createTable();
+    abstract static function createTable(string $table_name);
 
-    abstract function createColumns();
+    abstract static function createColumns(string $tablename, array $map);
 
-    abstract function getColumns();
+    abstract static function getColumns(string $tablename);
 
-    abstract function updateColumns();
+    abstract static function updateColumns(string $tablename, array $map);
 
-    abstract function getAllRecords();
+    abstract static function getAllRecords(string $tablename);
 
-    abstract function insertRecord();
+    abstract static function insertRecord(string $tablename, AlphaRecord $map);
 
-    abstract function updateRecord();
+    abstract static function updateRecord(string $tablename, AlphaRecord $map, int $id);
 
-    abstract function deleteRecord();
+    abstract static function deleteRecord(AlphaRecord $alpha_record);
 
-    abstract function find();
+    abstract static function find(bool $single, string $tablename, string $where, array $map = []);
 
     static function getQueryBuilder(string $driver): QueryBuilder
     {
         $driver = strtolower($driver);
-        if (!in_array($driver, AlphaORM::SUPPORTED_DATABASES)) { throw new Exception("'{$driver}' is not a supported database. Supported databases includes mysql"); }
         switch ($driver) {
             case 'mysql':
-                return MySQLQueryBuilder::class;
+                return new MySQLQueryBuilder;
                 break;
         }
     }
