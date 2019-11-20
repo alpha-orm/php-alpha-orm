@@ -2,7 +2,15 @@
     "name": "alpha-orm/alpha-orm",
     "description": "A nice database orm written in php",
     "type": "library",
+    "version": "1.1.2",
     "license": "MIT",
+    "keywords" :
+    [
+        "database",
+        "db",
+        "orm",
+        "database-orm",
+    ],
     "authors":
     [
         {
@@ -22,13 +30,12 @@
             "src/utilities/constants.php"
         ]
     },
-    "require":
-    {
-        
-    },
     "config": {
         "platform": {
             "php": "7.1.32"
         }
+    },
+    "support": {
+        "email": "devclareo@gmail.com"
     }
 }
