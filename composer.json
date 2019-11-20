@@ -9,7 +9,7 @@
         "database",
         "db",
         "orm",
-        "database-orm",
+        "database-orm"
     ],
     "authors":
     [
