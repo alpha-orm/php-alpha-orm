@@ -44,10 +44,15 @@ class MySQLQueryBuilder extends QueryBuilder
         return $sql;
 	}
 
-	static function deleteRecord(AlphaRecord $alpha_record): string
-	{
-		return "DELETE FROM `{$alpha_record->getTableName()}` WHERE `id` = {$alpha_record->getID()}";
-	}
+    static function deleteRecord(AlphaRecord $alpha_record): string
+    {
+        return "DELETE FROM `{$alpha_record->getTableName()}` WHERE `id` = {$alpha_record->getID()}";
+    }
+
+    static function deleteAllRecords(string $tablename): string
+    {
+        return "DELETE FROM `{$tablename}`";
+    }
 
 	static function updateRecord(string $tablename, AlphaRecord $map, int $id): string
 	{

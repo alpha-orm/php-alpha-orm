@@ -31,6 +31,11 @@ class AlphaORM
         return $alpha_record->getID() == null;
     }
 
+    static function dropAll(string $tablename)
+    {        
+        Driver::getDriver($_ENV['DRIVER'])::dropAll($tablename);
+    }
+
     static function create(string $table_name): AlphaRecord
     {
         Driver::getDriver($_ENV['DRIVER'])::createTable($table_name);

@@ -142,6 +142,11 @@ abstract class Driver
        $alpha_record->deleteID(); 
     }
 
+    static function dropAll(string $tablename)
+    {
+       self::query(QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::deleteAllRecords($tablename));
+    }
+
     static function getDriver(string $driver): Driver
     {
         $driver = strtolower($driver);
