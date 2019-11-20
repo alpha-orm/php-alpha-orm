@@ -57,7 +57,7 @@ AlphaORM::store($student);
 /**
 * reading [one] (filter)
 */
-$product = AlphaORM::find('shop_product','id = :id',[ 'id' : 3 ]);
+$product = AlphaORM::find('shop_product','id = :id',[ 'id' => 3 ]);
 print_r($product);
 
 /**
@@ -80,7 +80,7 @@ print_r($products);
 /**
 * update
 */
-$product = AlphaORM::find('shop_product','id = :id', [ 'id' : 3 ]);
+$product = AlphaORM::find('shop_product','id = :id', [ 'id' => 3 ]);
 $product->price = 500;
 AlphaORM::store($product);
 ```
@@ -90,7 +90,7 @@ AlphaORM::store($product);
 /**
 * delete
 */
-$product = AlphaORM::find('shop_product','id = :id', [ 'id' : 2 ]);
+$product = AlphaORM::find('shop_product','id = :id', [ 'id' => 2 ]);
 AlphaORM::drop($product);
 ```
 ### Delete Everything
