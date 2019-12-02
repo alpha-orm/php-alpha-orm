@@ -47,7 +47,7 @@ $user->birthday = '8-October-1998';
 
 $student = AlphaORM::create('student');
 $student->matno = "15/31525";
-$student->user = user;
+$student->user = $user;
 
 AlphaORM::store($student);
 ```
