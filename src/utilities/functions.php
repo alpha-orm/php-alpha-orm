@@ -41,10 +41,3 @@ function getTableMap(string $tablename)
     }
     return $f;
 }
-
-# Error Messages
-function DRIVER_NOT_SUPPORTED(string $driver): string
-{ return "'{$driver}' is not a supported database. Supported databases includes mysql"; }
-
-function VARIABLE_NOT_PRESENT(string $var): string
-{ return "Variable '{$var}' is not present in parameters"; }

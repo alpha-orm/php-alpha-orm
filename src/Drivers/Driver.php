@@ -154,6 +154,9 @@ abstract class Driver
             case 'mysql':
                 return new MySQLDriver;
                 break;
+            case 'pgsql':
+                return new PostgreSQLDriver;
+                break;
         }
     }
 }

@@ -6,14 +6,19 @@ use AlphaORM\Drivers\Driver;
 class AlphaORM
 {
 
-	const SUPPORTED_DATABASES = [ 'mysql' ];
+	const SUPPORTED_DATABASES = [ 'mysql', 'pgsql' ];
     const DATA_TYPES = [ 'double', 'string' , 'boolean' , 'int'];
 
 	static function setup(string $driver, Array $options): bool
 	{
-        if (!in_array($driver, self::SUPPORTED_DATABASES)) { throw new Exception(DRIVER_NOT_SUPPORTED($driver)); }
+        if (!in_array($driver, self::SUPPORTED_DATABASES)) { throw new \Exception(DRIVER_NOT_SUPPORTED($driver)); }        
         $_ENV['DRIVER'] = $driver;
         $_ENV['OPTIONS'] = $options;
+        foreach (Driver::getDriver($_ENV['DRIVER'])::REQUIRED_FIELDS as $option) {
+            if (!array_key_exists($option,$options)) {
+                throw new \Exception(SETUP_OPTION_MISSING($option));
+            }
+        }
         $connected = Driver::connect();
         $_ENV['CONNECTION'] = null;
         return $connected;

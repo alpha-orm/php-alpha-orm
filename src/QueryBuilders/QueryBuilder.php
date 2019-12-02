@@ -30,6 +30,9 @@ abstract class QueryBuilder {
             case 'mysql':
                 return new MySQLQueryBuilder;
                 break;
+            case 'pgsql':
+                return new PostgreSQLQueryBuilder;
+                break;
         }
     }
 }
