@@ -78,8 +78,28 @@ abstract class Driver
         return $response;
     }
 
+    static function createColumnsForFind(string $tablename, string $where)
+    {
+        $alpha_record = AlphaORM::create($tablename);
+        preg_match_all('#(\w+\s*)(=|!=|>|<|>=|<=)#', $where, $columns);
+        $columns = $columns[0];
+
+        foreach ($columns as $column) {
+            $column  = trim(preg_replace('(=|!=|>|<|>=|<=)', '', $column));
+            if ($column == 'id') { continue; }
+            $alpha_record->{$column} = false;
+        }
+
+        $columns_db = self::getColumns($tablename);
+        extract(Generator::getGenerator($_ENV['DRIVER'])::columns($columns_db, $alpha_record));
+
+        if (!empty($new_columns)) { self::createColumns($alpha_record->getTableName(), $new_columns); }
+    }
+
     static function find(string $tablename, string $where, array $map = [])
     {
+        self::createColumnsForFind($tablename, $where);
+
         extract(self::query(QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::find(true, $tablename, $where, $map)));
         if (count($response) !== 1) {
             throw new \Exception(constant('RECORD_NOT_FOUND'));        
@@ -89,6 +109,8 @@ abstract class Driver
 
     static function findAll(string $tablename, string $where, array $map = []): array
     {
+        self::createColumnsForFind($tablename, $where);
+        
         extract(self::query(QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::find(false, $tablename, $where, $map)));
         return AlphaRecord::create($tablename, array_values($response));
     }
