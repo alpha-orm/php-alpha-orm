@@ -26,6 +26,9 @@ class AlphaORM
 
     static function store(AlphaRecord $alpha_record): bool
     {
+        if (empty(getProperties($alpha_record))) {
+            return false;
+        }
         Driver::getDriver($_ENV['DRIVER'])::store($alpha_record);
         return $alpha_record->getID() == null;
     }

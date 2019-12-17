@@ -2,7 +2,7 @@
     "name": "alpha-orm/alpha-orm",
     "description": "A nice database orm written in php",
     "type": "library",
-    "version": "1.1.26",
+    "version": "1.2.0",
     "license": "MIT",
     "keywords" :
     [

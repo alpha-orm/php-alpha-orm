@@ -1,102 +1,116 @@
 # alpha-orm
-An extraordinary javascript database orm
+An extraordinary python database orm
 
 ## Features
-* Automatically creates tables and columns.
-* No configuration required, simply create database.
-* Currently supported databases include mysql, sqlite and postgresql.
+* Automatically creates tables and columns
+* No configuration required, simply create database
+* Currently supported databases include mysql
 
 
 ## Examples
 #
 ### Setup (MySQL)
 ```php
-require_once 'vendor/autoload.php';
+use ALphaORM\ALphaORM as DB
 
-use AlphaORM\AlphaORM;
-
-AlphaORM::setup('mysql',[
-  'host' => 'localhost',
-  'user' => 'root',
-  'password' => '',
-  'database' => 'alphaorm'
+DB::setup('mysql',[
+  'host' : 'localhost',
+  'user' : 'root',
+  'password' : '',
+  'database' : 'alphaorm'
 ]);
 ```
 #
 #
-### Creating
+### CREATE
 ```php
-/**
-* creating
-*/
-$product = AlphaORM::create('shop_product');
-$product->name = "Running Shoes";
-$product->price = 1000;
-$product->stock = 50;
-AlphaORM::store($product);
+#--------------------------------------
+#	CREATE 1
+#--------------------------------------
+$product = DB::create('product');
+$product->name = 'Running shoes';
+$product->price = 5000;
+DB::store($product);
 
 
-/**
-* creating [foreign key]
-*/
-$user = AlphaORM::create('user');
-$user->firstname = "Claret";
-$user->lastname = "Nnamocha";
-$user->age = 21;
-$user->birthday = '8-October-1998';
 
-$student = AlphaORM::create('student');
-$student->matno = "15/31525";
-$student->user = $user;
 
-AlphaORM::store($student);
+#--------------------------------------
+#	CREATE 2
+#--------------------------------------
+$author = DB::create('author');
+$author->name = 'Chimamanda Adichie';
+
+$book = DB::create('book');
+$book->title = 'Purple Hibiscus';
+$book->author = $author;
+DB::store($book);
 ```
 #
-### Reading
+### READ
 ```php
-/**
-* reading [one] (filter)
-*/
-$product = AlphaORM::find('shop_product','id = :id',[ 'id' => 3 ]);
-print_r($product);
-
-/**
-* reading [all]
-*/
-$products = AlphaORM::getAll('shop_product');
-print_r($products);
+#--------------------------------------
+#	READ 1 [get all records]
+#--------------------------------------
+$books = DB::getAll('book');
+foreach ($books as $book) {
+	print("{$book->title} by {$book->author->name}");
+}
 
 
-/**
-* reading [all] (filter)
-*/
-$products = AlphaORM::findAll('shop_product','id > 0');
-print_r($products);
+
+
+#--------------------------------------
+#	READ 2 [filter one]
+#--------------------------------------
+$book = DB::find('book','id = :bid', [ 'bid' => 1 ]);
+print("{$book->title} by {$book->author->name}");
+
+
+
+
+#--------------------------------------
+#	READ 3 [filter all]
+#--------------------------------------
+$author = DB::find('author','name = :authorName',[ 'authorName' => 'William Shakespare' ]);
+$booksByShakespare = DB::findAll('book', 'author_id = :authorId', [ 'authorId' => $author->getID() ]);
+print('Books by William Shakespare are :');
+foreach ($booksByShakespare as $book) {
+	print($book->title);
+}
 ```
 #
-### Updating
+### UPDATE
 
 ```php
-/**
-* update
-*/
-$product = AlphaORM::find('shop_product','id = :id', [ 'id' => 3 ]);
+
+#--------------------------------------
+#	UPDATE
+#--------------------------------------
+$product = DB::find('product', 'id = :pid', [ 'pid' => 1 ]);
 $product->price = 500;
-AlphaORM::store($product);
+
+$book = DB::find('book','id = :bid', [ 'bid' => 1 ]);
+$book->author->name = 'New author';
+$book->isbn = '3847302-SD';
+$book->title = 'New Title';
+DB::store($book);
+print($book);
 ```
 #
-### Delete
+### DELETE
 ```php
-/**
-* delete
-*/
-$product = AlphaORM::find('shop_product','id = :id', [ 'id' => 2 ]);
-AlphaORM::drop($product);
-```
-### Delete Everything
-```php
-/**
-* delete [all]
-*/
-AlphaORM::dropAll('shop_product');
+#--------------------------------------
+#	DELETE 1 [delete single record]
+#--------------------------------------
+$book = DB::find('book','id = :bid', [ 'bid' => 1 ]);
+DB::drop($book);
+
+
+
+
+#--------------------------------------
+#	DELETE 2 [delete all records]
+#--------------------------------------
+DB::dropAll('book');
 ```

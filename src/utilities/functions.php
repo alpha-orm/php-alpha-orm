@@ -23,9 +23,9 @@ function endsWith(string $string, string $endString): bool
 
 function getProperties(Object $object)
 {
-	return array_map(function ($element) {
-		return $element->name;
-	}, ((new ReflectionObject($object))->getProperties()));
+	return array_values(array_filter(array_map(function ($element) {
+        return in_array($element->name, ['_tablename','id']) ? '' : $element->name;
+    }, ((new ReflectionObject($object))->getProperties()))));
 }
 
 function getTableMap(string $tablename)

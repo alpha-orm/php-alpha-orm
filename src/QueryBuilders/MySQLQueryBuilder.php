@@ -60,6 +60,7 @@ class MySQLQueryBuilder extends QueryBuilder
 		$columns = getProperties($map);
 		foreach (getProperties($map) as $column) {
             if (in_array($column, [ '_id', 'id', '_tablename' ])) { continue; }
+            if ($map->{$column} instanceof AlphaRecord) { continue; }
 			$colVal = $map->{$column};
 			$colVal = is_bool($colVal) ? $colVal == true ? 1 : 0 : $colVal;
 			$colVal = json_encode($colVal);

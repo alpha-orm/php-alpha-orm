@@ -47,7 +47,7 @@ class AlphaRecord {
     		foreach (getProperties($row) as $column) {
     			if (endsWith($column, '_id')) {
     				$table = str_replace('_id', '', $column);
-    				$record->{$table} = self::handleEmbedding($_ENV['DRIVER'], $table, $row[$column]);
+    				$record->{$table} = self::handleEmbedding($_ENV['DRIVER'], $table, $row->{$column});
     				continue;
     			}
     			$record->{$column} = startsWith ($map[$column], QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::DATA_TYPE['boolean']) ? ($row->{$column} == 1) : $row->{$column};
