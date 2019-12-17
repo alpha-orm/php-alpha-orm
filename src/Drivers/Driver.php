@@ -110,7 +110,7 @@ abstract class Driver
     static function findAll(string $tablename, string $where, array $map = []): array
     {
         self::createColumnsForFind($tablename, $where);
-        
+
         extract(self::query(QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::find(false, $tablename, $where, $map)));
         return AlphaRecord::create($tablename, array_values($response));
     }
@@ -138,11 +138,9 @@ abstract class Driver
                 if (in_array($col, [ '_tablename', 'id', '_id' ])) { continue; }
                 if ($alpha_record->{$col} instanceof AlphaRecord) {
                     $alpha_record->{$col} = self::store($alpha_record->{$col});
-                    // return self::updateRecord($alpha_record->getTableName(), $alpha_record);
                 }
                 return self::updateRecord($alpha_record->getTableName(),$alpha_record);
             }
-            // return self::updateRecord($alpha_record->getTableName(), $alpha_record);
         }
         $alpha_record->setID(self::insertRecord($alpha_record->getTableName(), $alpha_record));
         return $alpha_record;
