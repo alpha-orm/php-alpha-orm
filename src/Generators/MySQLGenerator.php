@@ -19,7 +19,7 @@ class MySQLGenerator extends Generator
         			} elseif(startsWith($col->Type, MySQLQueryBuilder::DATA_TYPE['integer']) and !is_bool($alpha_record->{$col->Field})) {
         					$updated_columns[$col->Field] = MySQLQueryBuilder::DATA_TYPE[gettype($alpha_record->{$col->Field})];
         			} elseif(startsWith($col->Type, MySQLQueryBuilder::DATA_TYPE['boolean']) and !is_bool($alpha_record->{$col->Field})){
-        				if (!in_array(gettype($alpha_record->{$col->Field}), [ 'integer', 'double' ])) {
+        				if (in_array(gettype($alpha_record->{$col->Field}), [ 'integer', 'double' ])) {
         					$updated_columns[$col->Field] = MySQLQueryBuilder::DATA_TYPE[gettype($alpha_record->{$col->Field})];
         				}else{
         					$updated_columns[$col->Field] = MySQLQueryBuilder::DATA_TYPE['string'];
