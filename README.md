@@ -14,10 +14,10 @@ An extraordinary python database orm
 use ALphaORM\ALphaORM as DB
 
 DB::setup('mysql',[
-  'host' : 'localhost',
-  'user' : 'root',
-  'password' : '',
-  'database' : 'alphaorm'
+  'host' => 'localhost',
+  'user' => 'root',
+  'password' => '',
+  'database' => 'alphaorm'
 ]);
 ```
 #
