@@ -32,7 +32,7 @@ abstract class Driver
 
     static function createTable(string $tablename)
     {
-        extract(self::query(QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::createTable($tablename)));
+        extract(self::query(QueryBuilder::getQueryBuilder($_ENV['DRIVER'])::createTable($tablename),false));
         return $response;
     }
 
