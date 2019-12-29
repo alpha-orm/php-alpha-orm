@@ -26,12 +26,12 @@ class MySQLQueryBuilder extends QueryBuilder
             return $sql;
         }
         if (count($matches) !== count($columns)) {
-            throw new Exception(constant('UNEQUAL_BOUNDED_PARAMETER'));
+            throw new \Exception(constant('UNEQUAL_BOUNDED_PARAMETER'));
         }
         foreach ($matches as $match) {
         	$i = str_replace(':', '', $match);
         	if (!isset($map[$i])) {
-        		throw new Exception(VARIABLE_NOT_PRESENT($i));
+        		throw new \Exception(VARIABLE_NOT_PRESENT($i));
         	}
         	$val = $map[$i];
         	$val = is_string($val) ? str_replace("'", "\'", $val) : $val ;
