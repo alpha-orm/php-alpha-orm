@@ -1,7 +1,7 @@
 <?php
 use AlphaORM\Drivers\Driver;
 
-function contains(string $needle, string $haystack): bool
+function str_contains(string $needle, string $haystack): bool
 {
 	return (strpos($haystack, $needle) !== false);
 }
